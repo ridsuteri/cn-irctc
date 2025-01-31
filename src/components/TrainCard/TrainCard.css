@@ -1,0 +1,35 @@
+.train-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 15px 0;
+    text-align: left;
+    transition: transform 0.3s;
+  }
+  
+  .train-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .train-card h3 {
+    margin-top: 0;
+    color: #007bff;
+  }
+  
+  .train-card p {
+    color: #495057;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

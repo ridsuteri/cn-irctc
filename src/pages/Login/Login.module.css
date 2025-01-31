@@ -1,5 +1,5 @@
 /* Outer container to center the form on the page */
-.login-container {
+.loginContainer {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
@@ -8,7 +8,7 @@
 }
 
 /* Form box layout similar to IRCTC */
-.login-box {
+.loginBox {
   background-color: #ffffff; /* White background for form */
   padding: 30px;
   border-radius: 10px; /* Rounded corners */
@@ -18,8 +18,38 @@
 }
 
 /* Form heading */
-.login-box h2 {
+.loginBox h2 {
   text-align: center;
   color: #003366; /* IRCTC blue color for heading */
   margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.formGroup input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.formGroup input:focus {
+  border-color: #003366;
 }

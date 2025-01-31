@@ -1,10 +1,9 @@
 import React from "react";
-import "./Register.css";
-
+import styles from "./Register.module.css";
 const Register = () => {
   return (
-    <div className="register-container">
-      <div className="register-box">
+    <div className={styles.registerContainer}>
+      <div className={styles.registerBox}>
         <h2>Register</h2>
         <form>
           <div className="form-group">

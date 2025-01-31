@@ -9,6 +9,7 @@ const App = () => {
   return (
     <div>
       <Homepage/>
+      {/* <Register/> */}
       {/* <Login/> */}
       {/* <ClassBasedComponent initialCount = {10} />
       <hr />

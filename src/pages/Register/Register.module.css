@@ -1,5 +1,5 @@
 /* Outer container to center the form on the page */
-.register-container {
+.registerContainer {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -8,7 +8,7 @@
   }
   
   /* Form box layout similar to IRCTC */
-  .register-box {
+  .registerBox {
     background-color: #ffffff; /* White background for form */
     padding: 30px;
     border-radius: 10px; /* Rounded corners */
@@ -18,8 +18,8 @@
   }
   
   /* Form heading */
-  .register-box h2 {
+  .registerBox h2 {
     text-align: center;
-    color: #003366; /* IRCTC blue color for heading */
+    color: #003366; 
     margin-bottom: 20px;
   }

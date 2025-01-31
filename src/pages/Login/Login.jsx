@@ -1,17 +1,17 @@
 import React from "react";
-import "./Login.css";
+import styles from "./Login.module.css"; // Import CSS Module
 
 const Login = () => {
   return (
-    <div className="login-container">
-      <div className="login-box">
+    <div className={styles.loginContainer}>
+      <div className={styles.loginBox}>
         <h2>Login</h2>
-        <form>
-          <div className="form-group">
+        <form className={styles.form}>
+          <div className={styles.formGroup}>
             <label htmlFor="username">Username</label>
             <input type="text" id="username" required />
           </div>
-          <div className="form-group">
+          <div className={styles.formGroup}>
             <label htmlFor="password">Password</label>
             <input type="password" id="password" required />
           </div>
