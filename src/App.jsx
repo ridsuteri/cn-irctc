@@ -4,10 +4,13 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import ClassBasedComponent from "./pages/ClassBasedComponent";
 import FunctionalComponent from "./pages/FunctionalComponent";
+import WrapperForExample from "./components/LifeCycleExample/WrapperForExample";
+import TrainList from "./components/TrainList/TrainList";
 
 const App = () => {
   return (
     <div>
+      {/* <WrapperForExample/> */}
       <Homepage/>
       {/* <Register/> */}
       {/* <Login/> */}
