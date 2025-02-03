@@ -6,12 +6,14 @@ import ClassBasedComponent from "./pages/ClassBasedComponent";
 import FunctionalComponent from "./pages/FunctionalComponent";
 import WrapperForExample from "./components/LifeCycleExample/WrapperForExample";
 import TrainList from "./components/TrainList/TrainList";
+import CustomHookUsage from "./components/CustomHookUsage";
 
 const App = () => {
   return (
     <div>
       {/* <WrapperForExample/> */}
-      <Homepage/>
+      <CustomHookUsage/>
+      {/* <Homepage/> */}
       {/* <Register/> */}
       {/* <Login/> */}
       {/* <ClassBasedComponent initialCount = {10} />

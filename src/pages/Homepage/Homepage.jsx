@@ -3,21 +3,16 @@ import "./HomePage.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Traincard from "../../components/TrainCard/TrainCard";
 import trainData from '../../trainData.json'
+import useForm from "../../hooks/useForm";
 const HomePage = () => {
-  const [formData, setFormData] = useState({ from: "", to: "", date: "" });
+  const [formData, handleChange] = useForm({ from: "", to: "", date: "" });
+  // const [response, loading, err] = useFetch('api-url'); // TODO : further scope of the project
   const [trainList, setTrainList] = useState([]); // State for storing train data
   const [isLoading, setIsLoading] = useState(false); // Loading state for API calls
-
-  // Handle form input changes
-  const handleChange = (event) => {
-    const { id, value } = event.target;
-    setFormData({ ...formData, [id]: value });
-  };
 
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Log form data on submission
     console.log("Form submitted:", formData);
     setIsLoading(true); // Start loading when form is submitted
   };
