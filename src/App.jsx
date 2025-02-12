@@ -9,21 +9,38 @@ import FunctionalComponent from "./pages/FunctionalComponent";
 import WrapperForExample from "./components/LifeCycleExample/WrapperForExample";
 import TrainList from "./components/TrainList/TrainList";
 import CustomHookUsage from "./components/CustomHookUsage";
+import Private from "./components/Private/Private";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 const App = () => {
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Homepage />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+    {
+      path: "/booking",
+      element: <BookingDetails />,
+    },
+    {
+      path: "/history",
+      element: <BookingHistory />,
+    },
+  ]);
   return (
-    <div>
-      {/* <WrapperForExample/> */}
-      {/* <CustomHookUsage/> */}
-      {/* <Homepage/> */}
-      {/* <Register/> */}
-      {/* <Login/> */}
-      <BookingHistory/>
-      {/* <BookingDetails/> */}
-      {/* <ClassBasedComponent initialCount = {10} />
-      <hr />
-      <FunctionalComponent  initialCount = {10} /> */}
-    </div>
+    <RouterProvider router={router} />
   );
 };
 

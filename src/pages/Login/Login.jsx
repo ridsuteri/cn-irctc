@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Navbar from "../../components/Navbar/Navbar";
 import app from "../../config/firebase.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import useForm from "../../hooks/useForm";
@@ -30,6 +31,8 @@ const Login = () => {
     }
   };
   return (
+    <div className={styles.container}>
+    <Navbar/>
     <div className={styles.loginContainer}>
       <div className={styles.loginBox}>
         <h2>Login</h2>
@@ -51,6 +54,7 @@ const Login = () => {
           <button type="submit">Login</button>
         </form>
       </div>
+    </div>
     </div>
   );
 };

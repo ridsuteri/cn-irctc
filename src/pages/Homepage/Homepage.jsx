@@ -50,8 +50,9 @@ const HomePage = () => {
   }, [isLoading, formData]); // Dependency array: effect runs when isLoading changes
 
   return (
+    <>
+    <Navbar />
     <div className="homepage">
-      <Navbar />
       <h2>Book Your Train Ticket</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -100,6 +101,7 @@ const HomePage = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 

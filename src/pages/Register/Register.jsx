@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import app from "../../config/firebase.js";
 import useForm from "../../hooks/useForm";
+import Navbar from "../../components/Navbar/Navbar";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -27,6 +28,8 @@ const Register = () => {
       });
   };
   return (
+    <div className={styles.container}>
+    <Navbar/>
     <div className={styles.registerContainer}>
       <div className={styles.registerBox}>
         <h2>Register</h2>
@@ -52,6 +55,7 @@ const Register = () => {
           <button type="submit">Register</button>
         </form>
       </div>
+    </div>
     </div>
   );
 };

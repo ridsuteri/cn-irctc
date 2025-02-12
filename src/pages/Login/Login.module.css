@@ -1,9 +1,12 @@
+.container{
+  min-height: 100vh;
+}
 /* Outer container to center the form on the page */
 .loginContainer {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  min-height: 100vh; /* Full viewport height */
+  height: 90vh;
   background-color: #f5f5f5; /* Light gray background */
 }
 

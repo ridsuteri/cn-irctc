@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth"; // Import onAuthStateChanged
 import app from "../../config/firebase.js";
+import Navbar from "../../components/Navbar/Navbar";
 import styles from "./BookingHistory.module.css";
 
 const BookingHistory = () => {
@@ -53,6 +54,8 @@ const BookingHistory = () => {
   }, [db, user]);
 
   return (
+    <>
+    <Navbar/>
     <div className={styles.historyContainer}>
       <h2>Booking History</h2>
       {loading ? (
@@ -74,6 +77,7 @@ const BookingHistory = () => {
         <p>No bookings found.</p>
       )}
     </div>
+    </>
   );
 };
 
