@@ -10,6 +10,8 @@ import WrapperForExample from "./components/LifeCycleExample/WrapperForExample";
 import TrainList from "./components/TrainList/TrainList";
 import CustomHookUsage from "./components/CustomHookUsage";
 import Private from "./components/Private/Private";
+import {AuthProvider} from './context/AuthContext'
+import { Toaster} from "react-hot-toast";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -32,15 +34,18 @@ const App = () => {
     },
     {
       path: "/booking",
-      element: <BookingDetails />,
+      element: <Private><BookingDetails /></Private>,
     },
     {
       path: "/history",
-      element: <BookingHistory />,
+      element: <Private><BookingHistory /></Private>,
     },
   ]);
   return (
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <Toaster position="top-right" />
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 };
 

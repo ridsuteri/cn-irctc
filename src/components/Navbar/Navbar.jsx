@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import {Link} from 'react-router-dom'
 import "./Navbar.css";
 
 const Navbar = () => {
+  const { loggedInUser, logout } = useContext(AuthContext);
+  console.log(loggedInUser);
   return (
     <nav className="navbar">
       <h1>IRCTC</h1>
       <ul>
         <li>
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </li>
-        <li>
-          <a href="/login">Login</a>
-        </li>
-        <li>
-          <a href="/register">Register</a>
-        </li>
-        <li>
-          <a href="/history">History</a>
-        </li>
+        
+        {!loggedInUser && (
+          <>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+          </>
+        )}
+
+        {loggedInUser && (
+          <>
+            <li>
+              <Link to="/history">History</Link>
+            </li>
+            <li>
+              <Link onClick={logout}>
+                Logout
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

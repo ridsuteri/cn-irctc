@@ -7,10 +7,12 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
+import {useNavigate} from 'react-router-dom';
+import {showSuccessToast, showErrorToast, showInfoToast} from '../../utils/toast'
 import styles from "./Register.module.css";
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, handleChange] = useForm({});
-  const [message, setMessage] = useState("");
   const auth = getAuth();
 
   const handleSubmit = async (e) => {
@@ -21,10 +23,11 @@ const Register = () => {
         return sendEmailVerification(user);
       })
       .then((result) => {
-        setMessage("User registerd successfully & please verify email ");
+        showSuccessToast("User registerd successfully... Please verify email ");
+        navigate('/login')
       })
       .catch((error) => {
-        setMessage(`Error registering user ${error.message}`);
+        showErrorToast(`Error registering user ${error.message}`);
       });
   };
   return (
@@ -33,7 +36,6 @@ const Register = () => {
     <div className={styles.registerContainer}>
       <div className={styles.registerBox}>
         <h2>Register</h2>
-        <p>{message && message}</p>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>

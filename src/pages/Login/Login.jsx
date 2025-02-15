@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
+import { AuthContext } from '../../context/AuthContext';
 import Navbar from "../../components/Navbar/Navbar";
 import app from "../../config/firebase.js";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import useForm from "../../hooks/useForm";
+import {useNavigate} from 'react-router-dom';
+import {showSuccessToast, showErrorToast, showInfoToast} from '../../utils/toast'
 import styles from "./Login.module.css"; // Import CSS Module
 
 const Login = () => {
+  const navigate = useNavigate();
+  const {login} = useContext(AuthContext)
   const [formData, handleChange] = useForm({});
-  const [message, setMessage] = useState("");
   const auth = getAuth();
 
   const handleLogin = async (e) => {
@@ -19,15 +23,16 @@ const Login = () => {
         formData.password
       );
       const user = userCredential.user;
-
       // Check if email is verified
       if (user.emailVerified) {
-        setMessage("Login successful! Welcome.");
+        showSuccessToast("Login successful! Welcome.");
+        login(user);
+        navigate('/')
       } else {
-        setMessage("Please verify your email before logging in.");
+        showInfoToast("Please verify your email before logging in.");
       }
     } catch (error) {
-      setMessage(error.message);
+      showErrorToast(error.message);
     }
   };
   return (
@@ -36,7 +41,6 @@ const Login = () => {
     <div className={styles.loginContainer}>
       <div className={styles.loginBox}>
         <h2>Login</h2>
-        {message && <p className={styles.success}>{message}</p>}
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
