@@ -5,7 +5,6 @@ import "./Navbar.css";
 
 const Navbar = () => {
   const { loggedInUser, logout } = useContext(AuthContext);
-  console.log(loggedInUser);
   return (
     <nav className="navbar">
       <h1>IRCTC</h1>

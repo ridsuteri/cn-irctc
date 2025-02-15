@@ -23,7 +23,6 @@ const BookingDetails = () => {
     name: trainInfo.name,
     to: trainInfo.to,
     from: trainInfo.from,
-    date: new Date(),
     fare: trainInfo.fare,
     passengers: 1,
   });
@@ -45,9 +44,7 @@ const BookingDetails = () => {
     try {
       const booking = {
         bookingId: `b${Date.now()}`,
-        location,
-        date,
-        amount: parseFloat(amount),
+        ...formData
       };
 
       const userDocRef = doc(db, "users", user.uid);
@@ -119,7 +116,7 @@ const BookingDetails = () => {
                 type="number"
                 id="passenger"
                 value={formData.passenger}
-                onChange={() => handleChange(e)}
+                onChange={(e) => handleChange(e)}
                 required
               />
             </div>

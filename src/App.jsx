@@ -11,6 +11,7 @@ import TrainList from "./components/TrainList/TrainList";
 import CustomHookUsage from "./components/CustomHookUsage";
 import Private from "./components/Private/Private";
 import {AuthProvider} from './context/AuthContext'
+import UseCallbackWrapper from './components/UseCallbackWrapper'
 import { Toaster} from "react-hot-toast";
 import {
   createBrowserRouter,
@@ -46,6 +47,7 @@ const App = () => {
       <Toaster position="top-right" />
       <RouterProvider router={router} />
     </AuthProvider>
+    // <UseCallbackWrapper/>
   );
 };
 
