@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./HomePage.css";
+import "./Homepage.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Traincard from "../../components/TrainCard/TrainCard";
 import trainData from '../../trainData.json'
@@ -22,27 +22,6 @@ const HomePage = () => {
     if (isLoading) {
       // Simulate API call
       setTimeout(() => {
-        // const mockTrains = [
-        //   {
-        //     id: 1,
-        //     name: "Express 101",
-        //     from: formData.from,
-        //     to: formData.to,
-        //     departureTime: "10:00 AM",
-        //     arrivalTime: "08:00 PM",
-        //     fare: 2000
-        //   },
-        //   {
-        //     id: 2,
-        //     name: "Superfast 202",
-        //     from: formData.from,
-        //     to: formData.to,
-
-        //     departureTime: "2:00 PM",
-        //     arrivalTime: "06:00 AM",
-        //     fare: 3000
-        //   },
-        // ];
         setTrainList(trainData); // Set the fetched train list
         setIsLoading(false); // Reset loading state after fetching data
       }, 2000); // Simulating a 2-second delay for the API call
