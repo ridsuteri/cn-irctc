@@ -1,0 +1,94 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #003366;
+    color: white;
+    padding: 15px 2px;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.homeIcon {
+    margin-right: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #ffffff;
+    transition: color 0.2s ease;
+}
+
+.homeIcon:hover {
+    color: #ffcc00;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navLink {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.navLink:hover {
+    color: #ffcc00;
+}
+
+.icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.icon:hover {
+    color: #ffcc00;
+}
+
+.authButton,
+.registerButton {
+    background-color: #ff6600;
+    color: white;
+    padding: 6px 14px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.registerButton {
+    background-color: green;
+}
+
+.authButton:hover {
+    background-color: darkorange;
+}
+
+.registerButton:hover {
+    background-color: darkgreen;
+}
