@@ -1,0 +1,13 @@
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding-top: 60px; /* Height of navbar */
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+  } 

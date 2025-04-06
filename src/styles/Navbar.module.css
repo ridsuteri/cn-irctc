@@ -3,92 +3,121 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Ensures padding and border are included in the element’s total width and height */
 }
 
-/* Navbar */
+/* Navbar Container */
 .navbar {
     position: fixed;
+    /* Keeps navbar fixed at the top */
     top: 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    /* Spreads elements across the navbar */
     align-items: center;
     background-color: #003366;
+    /* Dark blue background */
     color: white;
     padding: 15px 2px;
     z-index: 1000;
+    /* Ensures navbar stays above other content */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    /* Adds a subtle shadow */
 }
 
+/* Logo and Home Icon Container */
 .logoContainer {
     display: flex;
     align-items: center;
     position: relative;
 }
 
+/* Home Icon Styling */
 .homeIcon {
     margin-right: 8px;
     font-size: 1.2rem;
     cursor: pointer;
     color: #ffffff;
+    /* Default color */
     transition: color 0.2s ease;
+    /* Smooth transition on hover */
 }
 
 .homeIcon:hover {
     color: #ffcc00;
+    /* Changes color to yellow on hover */
 }
 
+/* Logo Styling */
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
     color: white;
 }
 
+/* Navigation Links Container */
 .navLinks {
     display: flex;
     align-items: center;
     gap: 20px;
+    /* Spaces out navigation links */
 }
 
+/* Individual Navigation Link */
 .navLink {
     cursor: pointer;
     transition: color 0.2s ease;
+    /* Smooth transition on hover */
 }
 
 .navLink:hover {
     color: #ffcc00;
+    /* Changes color to yellow on hover */
 }
 
+/* Common Icon Styling */
 .icon {
     font-size: 1.2rem;
     cursor: pointer;
     transition: color 0.2s ease;
+    /* Smooth transition on hover */
 }
 
 .icon:hover {
     color: #ffcc00;
+    /* Changes color to yellow on hover */
 }
 
+/* Authentication Buttons */
 .authButton,
 .registerButton {
     background-color: #ff6600;
+    /* Orange background */
     color: white;
     padding: 6px 14px;
     border: none;
     cursor: pointer;
     margin-left: 10px;
     border-radius: 5px;
+    /* Rounded corners */
     transition: background 0.3s;
+    /* Smooth transition on hover */
 }
 
+/* Register Button Specific Styling */
 .registerButton {
     background-color: green;
+    /* Green background */
 }
 
+/* Button Hover Effects */
 .authButton:hover {
     background-color: darkorange;
+    /* Darker shade of orange on hover */
 }
 
 .registerButton:hover {
     background-color: darkgreen;
+    /* Darker shade of green on hover */
 }
