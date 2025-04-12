@@ -1,13 +1,48 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import styles from "../styles/AuthModal.module.css";
+import { registerWithEmail, loginWithGoogle } from "../services/AuthService";
 
 const RegisterModal = ({ isOpen, onClose, switchToLogin }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      await registerWithEmail(email, password, fullName);
+      setEmail("");
+      setPassword("");
+      onClose();
+      switchToLogin();
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleRegister = async () => {
+    setError("");
+    setLoading(true);
+
+    try {
+      await loginWithGoogle();
+      onClose();
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -19,8 +54,8 @@ const RegisterModal = ({ isOpen, onClose, switchToLogin }) => {
           X
         </button>
         <h2>Register</h2>
-
-        <form>
+        {error && <p className={styles.error}>{error}</p>}
+        <form onSubmit={handleRegister}>
           <input
             type="text"
             placeholder="Full Name"
@@ -42,10 +77,16 @@ const RegisterModal = ({ isOpen, onClose, switchToLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="button">Register</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
         </form>
 
-        <button className={styles.googleBtn}>
+        <button
+          className={styles.googleBtn}
+          onClick={handleGoogleRegister}
+          disabled={loading}
+        >
           <FcGoogle /> Register with Google
         </button>
 

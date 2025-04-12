@@ -1,12 +1,48 @@
 import React, { useState } from "react";
 import styles from "../styles/AuthModal.module.css";
 import { FcGoogle } from "react-icons/fc";
+import { loginWithEmail } from "../config/AuthService";
 
-const LoginModal = ({ isOpen, onClose, switchToRegister }) => {
+const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleEmailLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    try {
+      const user = await loginWithEmail(email, password);
+      setEmail("");
+      setPassword("");
+      if (onLogin) onLogin();
+      onClose();
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    setLoading(true);
+
+    try {
+      await loginWithGoogle();
+      if (onLogin) onLogin();
+      onClose();
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div
@@ -18,8 +54,8 @@ const LoginModal = ({ isOpen, onClose, switchToRegister }) => {
           X
         </button>
         <h2>Login</h2>
-
-        <form>
+        {error && <p className={styles.error}>{error}</p>}
+        <form onSubmit={handleEmailLogin}>
           <input
             type="email"
             placeholder="Email"
@@ -34,10 +70,16 @@ const LoginModal = ({ isOpen, onClose, switchToRegister }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="button">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </form>
 
-        <button className={styles.googleBtn}>
+        <button
+          className={styles.googleBtn}
+          onClick={handleGoogleLogin}
+          disabled={loading}
+        >
           <FcGoogle /> Login with Google
         </button>
 
