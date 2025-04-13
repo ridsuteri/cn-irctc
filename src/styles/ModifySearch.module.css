@@ -1,0 +1,46 @@
+.searchForm {
+    background: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    text-align: center;
+    /* Centers text inside */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centers content horizontally */
+}
+
+.searchForm h3 {
+    margin-bottom: 10px;
+}
+
+.searchForm form {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    /* Centers the form elements */
+    flex-wrap: wrap;
+    /* Makes it responsive */
+}
+
+.searchForm input,
+.searchForm button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchForm button {
+    background: orange;
+    /* Changed to blue */
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.searchForm button:hover {
+    background: rgb(246, 143, 46);
+    /* Darker blue on hover */
+}

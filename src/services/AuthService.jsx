@@ -36,6 +36,7 @@ import {
   export const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
+      console.log('result received afterm google', result.user);
       return result.user;
     } catch (error) {
       throw error;

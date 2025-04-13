@@ -4,11 +4,13 @@ import styles from "../styles/Navbar.module.css";
 import { FaBell, FaQuestionCircle, FaHome } from "react-icons/fa";
 import LoginModal from "../pages/LoginModal";
 import RegisterModal from "../pages/RegisterModal";
+import { useAuth } from "../context/AuthContext";
+import { logout } from "../services/AuthService";
 
-const Navbar = ({ setIsLoggedIn }) => {
+const Navbar = () => {
   const navigate = useNavigate();
+  const { currentUser, loading } = useAuth(); // Fixed: Proper extraction from useAuth hook
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [isLoggedIn, setIsLoggedInLocal] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
@@ -20,30 +22,33 @@ const Navbar = ({ setIsLoggedIn }) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLogin = () => {
-    setIsLoggedInLocal(true);
-    if (setIsLoggedIn) setIsLoggedIn(true);
-  };
-
-  const handleLogout = () => {
-    setIsLoggedInLocal(false);
-    if (setIsLoggedIn) setIsLoggedIn(false);
-  };
-
   const handleBookingClick = () => {
-    if (isLoggedIn) {
-      navigate("/booking");
+    if (currentUser) {
+      navigate("/booking"); // Changed: Navigate to booking instead of train-search
     } else {
       setIsLoginOpen(true);
     }
+  };
+
+  // const handleTrainSearchClick = () => {
+  //   navigate("/train-search"); // Added: Separate handler for train search
+  // };
+
+  const handleHomeClick = () => {
+    navigate("/");
   };
 
   const handleContactClick = () => {
     navigate("/contact");
   };
 
-  const handleHomeClick = () => {
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   return (
@@ -61,6 +66,12 @@ const Navbar = ({ setIsLoggedIn }) => {
           <span className={styles.navLink} onClick={handleBookingClick}>
             BOOKINGS
           </span>
+          {/* <span 
+            className={styles.navLink} 
+            onClick={handleTrainSearchClick}
+          >
+            TRAIN SEARCH
+          </span> */}
           <span className={styles.navLink} onClick={handleContactClick}>
             CONTACT US
           </span>
@@ -70,9 +81,9 @@ const Navbar = ({ setIsLoggedIn }) => {
           </span>
           <FaBell className={styles.icon} title="Notifications" />
           <FaQuestionCircle className={styles.icon} title="Help & Support" />
-          {isLoggedIn ? (
+          {currentUser ? (
             <>
-              <span>Welcome, User</span>
+              <span>Welcome, {currentUser.displayName || "User"}</span>
               <button className={styles.authButton} onClick={handleLogout}>
                 LOGOUT
               </button>
@@ -99,11 +110,11 @@ const Navbar = ({ setIsLoggedIn }) => {
       <LoginModal
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
-        onLogin={handleLogin}
         switchToRegister={() => {
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
         }}
+        onLogin={() => {}} // Will be updated in LoginModal.jsx
       />
 
       <RegisterModal

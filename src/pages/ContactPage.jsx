@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "../styles/ContactPage.module.css";
+import { useNavigate } from "react-router-dom";
 
 function ContactPage() {
+  const navigate = useNavigate()
   return (
     <div className={styles.contactContainer}>
+      {/* <button onClick={()=>navigate('/test', { replace: true })}>Go to test</button> */}
       <div className={styles.contactContent}>
         <h2>Contact Us</h2>
         <div className={styles.contactInfo}>

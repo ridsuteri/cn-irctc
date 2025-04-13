@@ -1,0 +1,116 @@
+.container {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .filterSection {
+    width: 250px;
+    background-color: white;
+    padding: 15px;
+    margin-right: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .filterColumn {
+    margin-bottom: 20px;
+  }
+  
+  .checkboxLabel {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .checkboxLabel input {
+    margin-right: 10px;
+  }
+  
+  .trainList {
+    flex-grow: 1;
+  }
+  
+  .trainCard {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .trainHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .trainName {
+    font-weight: bold;
+  }
+  
+  .trainSchedule {
+    color: blue;
+    cursor: pointer;
+  }
+  
+  .trainDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .timeInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .durationInfo {
+    color: gray;
+  }
+  
+  .classInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: gray;
+  }
+  
+  .actionButtons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .bookNowButton {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .otherDatesButton {
+    background-color: white;
+    color: orange;
+    border: 1px solid orange;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  .availableButton {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
+.waitlistButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+}

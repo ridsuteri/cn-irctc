@@ -13,6 +13,10 @@ import ContactPage from "./pages/ContactPage";
 import LoginModal from "./pages/LoginModal";
 import TrainCarousel from "./components/TrainCarousel";
 import styles from "./styles/App.module.css";
+import TrainSearchResults from "./pages/TrainSearchResults";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Test from "./components/Test";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
@@ -28,7 +32,16 @@ const RouteContentManager = () => {
       )}
       <Routes>
         <Route path="/" element={null} />
-        <Route path="/booking" element={<BookingPage />} />
+        <Route path='/test' element={<Test/> } />
+        <Route path="/Trainlist" element={<TrainSearchResults />} />
+        <Route
+          path="/booking"
+          element={
+            <ProtectedRoute>
+              <BookingPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/contact" element={<ContactPage />} />
         <Route
           path="/login"
@@ -48,14 +61,17 @@ const RouteContentManager = () => {
 
 function App() {
   return (
-    <Router>
-      <div className={styles.app}>
-        <Navbar />
-        <RouteContentManager />
-        <Footer />
-      </div>
-    </Router>
+    <AuthProvider>
+      {" "}
+      {/* Wrap the entire app with AuthProvider */}
+      <Router>
+        <div className={styles.app}>
+          <Navbar />
+          <RouteContentManager />
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
-
 export default App;

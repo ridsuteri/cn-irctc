@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../styles/AuthModal.module.css";
 import { FcGoogle } from "react-icons/fc";
-import { loginWithEmail } from "../config/AuthService";
+import { loginWithEmail, loginWithGoogle } from "../services/AuthService";
 
 const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
   const [email, setEmail] = useState("");
