@@ -1,0 +1,284 @@
+.container {
+    width: 80%;
+    margin: auto;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trainIcon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Journey Info */
+.journeyInfo {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+.journeyDetail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.journeyDetail span {
+    font-size: 12px;
+    color: #666;
+}
+
+.journeyDetail strong {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Progress Bar */
+.progressBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 20px 0;
+    margin: 30px 0;
+}
+
+.progressBar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 5px;
+    height: 100%;
+    background: #ddd;
+    z-index: 0;
+}
+
+/* Station Styles */
+.station {
+    position: relative;
+    z-index: 1;
+    margin: 15px 0;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* Left & Right Alignment */
+.left {
+    align-self: flex-start;
+    text-align: right;
+    padding-right: 52%;
+}
+
+.right {
+    align-self: flex-end;
+    text-align: left;
+    padding-left: 52%;
+}
+
+/* Station dot indicator */
+.station::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #007bff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+/* Source and Destination Highlights */
+.source::before,
+.destination::before {
+    width: 18px;
+    height: 18px;
+    background: #28a745;
+}
+
+.source {
+    align-self: flex-start;
+    text-align: right;
+    padding-right: 52%;
+    margin-top: 0;
+}
+
+.destination {
+    align-self: flex-end;
+    text-align: left;
+    padding-left: 52%;
+    margin-bottom: 0;
+}
+
+.stationName {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.source .stationName,
+.destination .stationName {
+    color: #28a745;
+    font-size: 16px;
+    border: 1px solid #28a745;
+}
+
+.timeInfo {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Class Selector */
+.classSelector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.classButton {
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.classButton.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Price Card */
+.priceCard {
+    margin: 30px auto;
+    padding: 20px;
+    width: 60%;
+    border-radius: 10px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.priceCard h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.priceDetails {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.priceDetails:last-of-type {
+    border-bottom: none;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 16px;
+    color: #007bff;
+}
+
+/* Operation Days */
+.operationDays {
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.operationDays h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.daysContainer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.dayBadge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 15px;
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+/* Buttons */
+.bookButton,
+.backButton {
+    margin-top: 15px;
+    padding: 10px 25px;
+    font-size: 16px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.bookButton {
+    background: #28a745;
+    width: 100%;
+}
+
+.bookButton:hover {
+    background: #218838;
+}
+
+.backButton {
+    background: #007bff;
+    margin-top: 25px;
+}
+
+.backButton:hover {
+    background: #0056b3;
+}
+
+/* Error and Loading */
+.error {
+    font-size: 18px;
+    color: #ff3333;
+    font-weight: bold;
+    margin: 30px auto;
+}
+
+.loading {
+    font-size: 18px;
+    color: #007bff;
+    margin: 30px auto;
+}

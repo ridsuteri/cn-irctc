@@ -2,8 +2,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -17,10 +17,13 @@ import TrainSearchResults from "./pages/TrainSearchResults";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Test from "./components/Test";
+import TrainDetails from "./pages/TrainDetails";
+import BookingConfirmation from "./pages/BookingConfirmationPage";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.mainContent}>
@@ -32,8 +35,10 @@ const RouteContentManager = () => {
       )}
       <Routes>
         <Route path="/" element={null} />
-        <Route path='/test' element={<Test/> } />
-        <Route path="/Trainlist" element={<TrainSearchResults />} />
+        <Route path="/train-search/" element={<TrainSearchResults />} />
+        <Route path="/train-details/:train_number" element={<TrainDetails />} />
+        <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+
         <Route
           path="/booking"
           element={
@@ -48,7 +53,7 @@ const RouteContentManager = () => {
           element={
             <LoginModal
               isOpen={true}
-              onClose={() => window.history.back()}
+              onClose={() => navigate(-1)}
               onLogin={() => {}}
               switchToRegister={() => {}}
             />

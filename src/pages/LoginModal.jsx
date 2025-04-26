@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import styles from "../styles/AuthModal.module.css";
 import { FcGoogle } from "react-icons/fc";
 import { loginWithEmail, loginWithGoogle } from "../services/AuthService";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get return path from location state or default to '/'
+  const returnPath = location.state?.returnPath || "/";
 
   if (!isOpen) return null;
 
@@ -18,10 +24,13 @@ const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
 
     try {
       const user = await loginWithEmail(email, password);
+      if (onLogin) onLogin();
       setEmail("");
       setPassword("");
-      if (onLogin) onLogin();
       onClose();
+
+      // Navigate to the return path after successful login
+      navigate(returnPath);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -37,6 +46,9 @@ const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
       await loginWithGoogle();
       if (onLogin) onLogin();
       onClose();
+
+      // Navigate to the return path after successful login
+      navigate(returnPath);
     } catch (error) {
       setError(error.message);
     } finally {
