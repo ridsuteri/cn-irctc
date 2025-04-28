@@ -197,7 +197,7 @@ const TrainSearchResults = () => {
     }
 
     setFilteredTrains(filtered);
-  }, [searchParams, filters]); // Added filters to dependencies
+  }, [ searchParams, filters]); // Added filters to dependencies
 
   // Use filtered trains if search params or filters are active, otherwise show all trains
   const displayTrains =
