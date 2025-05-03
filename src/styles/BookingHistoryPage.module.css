@@ -1,0 +1,42 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.card {
+    background-color: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #1a73e8;
+}
+
+.card p {
+    margin: 6px 0;
+}
+
+.card ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.loading,
+.empty {
+    text-align: center;
+    color: #555;
+    margin-top: 40px;
+}

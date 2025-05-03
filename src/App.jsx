@@ -19,6 +19,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Test from "./components/Test";
 import TrainDetails from "./pages/TrainDetails";
 import BookingConfirmation from "./pages/BookingConfirmationPage";
+import BookingHistoryPage from "./pages/BookingHistoryPage";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
@@ -44,6 +45,14 @@ const RouteContentManager = () => {
           element={
             <ProtectedRoute>
               <BookingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/booking-history"
+          element={
+            <ProtectedRoute>
+              <BookingHistoryPage />
             </ProtectedRoute>
           }
         />

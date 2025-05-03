@@ -24,7 +24,7 @@ const Navbar = () => {
 
   const handleBookingClick = () => {
     if (currentUser) {
-      navigate("/booking"); // Changed: Navigate to booking instead of train-search
+      navigate("/booking-history"); // Changed: Navigate to booking instead of train-search
     } else {
       setIsLoginOpen(true);
     }
