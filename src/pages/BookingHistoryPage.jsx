@@ -1,12 +1,49 @@
 import React, { useEffect, useState } from "react";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { db } from "../config/FirebaseConfig";
 import styles from "../styles/BookingHistoryPage.module.css";
-
+import { useAuth } from "../context/AuthContext";
 
 function BookingHistoryPage() {
- 
+  const { currentUser } = useAuth();
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (!currentUser) {
+        setBookings([]);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const bookingsRef = collection(db, "bookings");
+        const q = query(
+          bookingsRef,
+          where("userId", "==", currentUser.uid),
+          orderBy("createdAt", "desc")
+        );
+        const snapshot = await getDocs(q);
+
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setBookings(data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, [currentUser]);
+
   if (loading)
     return <div className={styles.loading}>Loading your bookings...</div>;
-
 
   if (bookings.length === 0)
     return (

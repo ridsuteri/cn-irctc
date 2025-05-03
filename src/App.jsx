@@ -20,6 +20,9 @@ import Test from "./components/Test";
 import TrainDetails from "./pages/TrainDetails";
 import BookingConfirmation from "./pages/BookingConfirmationPage";
 import BookingHistoryPage from "./pages/BookingHistoryPage";
+import DebouncedComponent from "./components/DebouncedComponent";
+import UseMemoExample from "./components/UseMemoExample";
+import UseCallbackWrapper from "./components/UseCallbackWrapper";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
@@ -57,6 +60,9 @@ const RouteContentManager = () => {
           }
         />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/debouncing" element={<DebouncedComponent />} />
+        <Route path="/usememo" element={<UseMemoExample />} />
+        <Route path="/usecallback" element={<UseCallbackWrapper />} />
         <Route
           path="/login"
           element={
