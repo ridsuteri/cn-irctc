@@ -5,8 +5,8 @@ import {
   FaSuitcase,
   FaTrain,
 } from "react-icons/fa";
-import styles from "./styles/Home.module.css";
-import trainImage from "./assets/train1.jpg";
+import styles from "../Styles/Home.module.css";
+import trainImage from "../assets/train1.jpg";
 
 const Home = () => {
   const [from, setFrom] = useState("");
