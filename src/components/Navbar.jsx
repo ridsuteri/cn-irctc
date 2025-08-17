@@ -1,91 +1,108 @@
-import React from "react";
-import styles from "../styles/Footer.module.css";
-import {
-  FaFacebook,
-  FaWhatsapp,
-  FaYoutube,
-  FaInstagram,
-  FaLinkedin,
-  FaTelegram,
-  FaPinterest,
-  FaTumblr,
-  FaSnapchat,
-  FaTwitter,
-} from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../styles/Navbar.module.css";
+import { FaBell, FaQuestionCircle, FaHome } from "react-icons/fa";
+import LoginModal from "../pages/LoginModal";
+import RegisterModal from "../pages/RegisterModal";
 
-const Footer = () => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Tracks login state
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleBookingClick = () => {
+    if (isLoggedIn) {
+      navigate("/booking"); // Redirect to booking page if logged in
+    } else {
+      setIsLoginOpen(true); // Open login modal if not logged in
+    }
+  };
+
   return (
-    <footer className={styles.footer}>
-      {/* Social Media Section */}
-      <div className={styles.socialMedia}>
-        <p>Get Connected with us on social networks</p>
-        <div className={styles.icons}>
-          <FaFacebook className={styles.icon} />
-          <FaWhatsapp className={styles.icon} />
-          <FaYoutube className={styles.icon} />
-          <FaInstagram className={styles.icon} />
-          <FaLinkedin className={styles.icon} />
-          <FaTelegram className={styles.icon} />
-          <FaPinterest className={styles.icon} />
-          <FaTumblr className={styles.icon} />
-          <FaSnapchat className={styles.icon} />
-          <FaTwitter className={styles.icon} />
+    <>
+      <nav className={styles.navbar}>
+        {/* Logo & Home Icon */}
+        <div className={styles.logoContainer}>
+          <FaHome
+            className={styles.homeIcon}
+            onClick={() => navigate("/")}
+            title="Home"
+          />
+          <div className={styles.logo}>IRCTC</div>
         </div>
-      </div>
 
-      {/* Footer Links Section */}
-      <div className={styles.footerLinks}>
-        <div>
-          <h4>IRCTC Trains</h4>
+        {/* Navigation Links */}
+        <div className={styles.navLinks}>
+          <span className={styles.navLink} onClick={handleBookingClick}>
+            BOOKINGS
+          </span>
+          <span className={styles.navLink} onClick={() => navigate("/contact")}>
+            CONTACT US
+          </span>
+          <span>
+            {currentTime.toLocaleDateString()} [
+            {currentTime.toLocaleTimeString()}]
+          </span>
+          <FaBell className={styles.icon} title="Notifications" />
+          <FaQuestionCircle className={styles.icon} title="Help & Support" />
+
+          {/* Authentication Buttons */}
+          {isLoggedIn ? (
+            <button
+              className={styles.authButton}
+              onClick={() => setIsLoggedIn(false)}
+            >
+              LOGOUT
+            </button>
+          ) : (
+            <>
+              <button
+                className={styles.authButton}
+                onClick={() => setIsLoginOpen(true)}
+              >
+                LOGIN
+              </button>
+              <button
+                className={styles.registerButton}
+                onClick={() => setIsRegisterOpen(true)}
+              >
+                REGISTER
+              </button>
+            </>
+          )}
         </div>
-        <div>
-          <h4>General Information</h4>
-        </div>
-        <div>
-          <h4>Important Information</h4>
-        </div>
-        <div>
-          <h4>Agents</h4>
-        </div>
-        <div>
-          <h4>Enquiries</h4>
-        </div>
-        <div>
-          <h4>How To</h4>
-        </div>
-        <div>
-          <h4>IRCTC eWallet</h4>
-        </div>
-        <div>
-          <h4>IRCTC Official App</h4>
-        </div>
-        <div>
-          <h4>Advertise with us</h4>
-        </div>
-        <div>
-          <h4>Refund Rules</h4>
-        </div>
-        <div>
-          <h4>Person With Disability Facilities</h4>
-        </div>
-        <div>
-          <h4>For Newly Migrated Agents</h4>
-        </div>
-        <div>
-          <h4>Mobile Zone</h4>
-        </div>
-        <div>
-          <h4>Policies</h4>
-        </div>
-        <div>
-          <h4>Ask Disha ChatBot</h4>
-        </div>
-        <div>
-          <h4>About us</h4>
-        </div>
-      </div>
-    </footer>
+      </nav>
+
+      {/* Login & Register Modals */}
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onLogin={() => setIsLoggedIn(true)} // Set login state when user logs in
+        switchToRegister={() => {
+          setIsLoginOpen(false);
+          setIsRegisterOpen(true);
+        }}
+      />
+
+      <RegisterModal
+        isOpen={isRegisterOpen}
+        onClose={() => setIsRegisterOpen(false)}
+        switchToLogin={() => {
+          setIsRegisterOpen(false);
+          setIsLoginOpen(true);
+        }}
+      />
+    </>
   );
 };
 
-export default Footer;
+export default Navbar;
