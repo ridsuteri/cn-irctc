@@ -1,0 +1,172 @@
+/* Container for the carousel */
+.carouselContainer {
+    width: 85%;
+    margin: 30px auto;
+    padding: 20px 0;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in animation for smoother appearance */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Carousel heading styling */
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Decorative underline for the heading */
+.heading:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #007bff;
+    border-radius: 2px;
+}
+
+/* Carousel wrapper */
+.carousel {
+    margin-top: 30px;
+}
+
+/* Individual card styling */
+.card {
+    background: linear-gradient(135deg, #ffffff, #f8f8f8);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 15px 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 4px solid #007bff;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Card hover effect */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.15);
+    border-top: 4px solid #0056b3;
+}
+
+/* Train route display */
+.trainRoute {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+/* Styling for station codes */
+.stationCode {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0a0a0a;
+}
+
+/* Arrow icon between stations */
+.arrow {
+    margin: 0 12px;
+    font-size: 20px;
+    color: #007bff;
+}
+
+/* Names of the stations */
+.stationNames {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* Trip details section */
+.tripDetails {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Styling for the date display */
+.date {
+    margin-right: 15px;
+    font-weight: bold;
+    color: #222;
+    font-size: 15px;
+    background-color: #f0f8ff;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+/* Styling for class type selection */
+.classType {
+    margin-left: 15px;
+    font-weight: bold;
+    color: #007bff;
+    font-size: 15px;
+    background-color: #e6f2ff;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+/* Responsive design adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    .carouselContainer {
+        width: 95%;
+    }
+
+    .card {
+        padding: 15px;
+        margin: 10px;
+        height: 140px;
+    }
+
+    .trainRoute {
+        font-size: 18px;
+    }
+
+    .stationCode {
+        font-size: 20px;
+    }
+
+    .arrow {
+        font-size: 16px;
+    }
+
+    .stationNames {
+        font-size: 12px;
+    }
+
+    .date,
+    .classType {
+        font-size: 12px;
+        padding: 3px 8px;
+    }
+}
