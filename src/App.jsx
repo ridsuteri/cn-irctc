@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   Navigate,
-  useLocation,
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -16,18 +15,19 @@ import styles from "./styles/App.module.css";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
-  const location = useLocation();
 
   return (
     <div className={styles.mainContent}>
-      {location.pathname === "/" && (
-        <>
-          <Home />
-          <TrainCarousel />
-        </>
-      )}
       <Routes>
-        <Route path="/" element={null} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Home />
+              <TrainCarousel />
+            </>
+          }
+        />
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route
