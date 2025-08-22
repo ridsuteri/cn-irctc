@@ -1,16 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "../styles/Navbar.module.css";
 import { FaBell, FaQuestionCircle, FaHome } from "react-icons/fa";
 import LoginModal from "../pages/LoginModal";
 import RegisterModal from "../pages/RegisterModal";
+import {
+  openLoginModal,
+  openRegisterModal,
+  closeModals
+} from "../redux/auth/authSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Get state from Redux store
+  const { isLoginOpen, isRegisterOpen, isLoggedIn, user } = useSelector(
+    (state) => state.auth
+  );
+
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Tracks login state
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,7 +33,7 @@ const Navbar = () => {
     if (isLoggedIn) {
       navigate("/booking"); // Redirect to booking page if logged in
     } else {
-      setIsLoginOpen(true); // Open login modal if not logged in
+      dispatch(openLoginModal()); // Open login modal if not logged in
     }
   };
 
@@ -56,24 +66,30 @@ const Navbar = () => {
           <FaQuestionCircle className={styles.icon} title="Help & Support" />
 
           {/* Authentication Buttons */}
-          {isLoggedIn ? (
-            <button
-              className={styles.authButton}
-              onClick={() => setIsLoggedIn(false)}
-            >
-              LOGOUT
-            </button>
+          {isLoggedIn && user ? (
+            <>
+              <span>{user.displayName}</span>
+              <button
+                className={styles.authButton}
+                onClick={
+                  // TODO: call method to logout
+                  ()=>{}
+                }
+              >
+                LOGOUT
+              </button>
+            </>
           ) : (
             <>
               <button
                 className={styles.authButton}
-                onClick={() => setIsLoginOpen(true)}
+                onClick={() => dispatch(openLoginModal())}
               >
                 LOGIN
               </button>
               <button
                 className={styles.registerButton}
-                onClick={() => setIsRegisterOpen(true)}
+                onClick={() => dispatch(openRegisterModal())}
               >
                 REGISTER
               </button>
@@ -85,21 +101,15 @@ const Navbar = () => {
       {/* Login & Register Modals */}
       <LoginModal
         isOpen={isLoginOpen}
-        onClose={() => setIsLoginOpen(false)}
-        onLogin={() => setIsLoggedIn(true)} // Set login state when user logs in
-        switchToRegister={() => {
-          setIsLoginOpen(false);
-          setIsRegisterOpen(true);
-        }}
+        onClose={() => dispatch(closeModals())}
+        onLogin={() => {}} // Login handled by async thunk
+        switchToRegister={() => dispatch(openRegisterModal())}
       />
 
       <RegisterModal
         isOpen={isRegisterOpen}
-        onClose={() => setIsRegisterOpen(false)}
-        switchToLogin={() => {
-          setIsRegisterOpen(false);
-          setIsLoginOpen(true);
-        }}
+        onClose={() => dispatch(closeModals())}
+        switchToLogin={() => dispatch(openLoginModal())}
       />
     </>
   );

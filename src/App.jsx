@@ -12,10 +12,10 @@ import ContactPage from "./pages/ContactPage";
 import LoginModal from "./pages/LoginModal";
 import TrainCarousel from "./components/TrainCarousel";
 import styles from "./styles/App.module.css";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
-
   return (
     <div className={styles.mainContent}>
       <Routes>
@@ -28,7 +28,15 @@ const RouteContentManager = () => {
             </>
           }
         />
-        <Route path="/booking" element={<BookingPage />} />
+        {/* <Route path="/trainlist" element={<TrainSearchResults />} /> */}
+        <Route
+          path="/booking"
+          element={
+            <ProtectedRoute>
+              <BookingPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/contact" element={<ContactPage />} />
         <Route
           path="/login"

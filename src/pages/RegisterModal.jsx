@@ -1,13 +1,32 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FcGoogle } from "react-icons/fc";
 import styles from "../styles/AuthModal.module.css";
+import {
+  clearError,
+} from "../redux/auth/authSlice";
 
 const RegisterModal = ({ isOpen, onClose, switchToLogin }) => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   if (!isOpen) return null;
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    dispatch(clearError());
+
+    // TODO: 
+  };
+
+  const handleGoogleRegister = async () => {
+    dispatch(clearError());
+
+    // TODO: 
+  };
 
   return (
     <div
@@ -19,8 +38,8 @@ const RegisterModal = ({ isOpen, onClose, switchToLogin }) => {
           X
         </button>
         <h2>Register</h2>
-
-        <form>
+        {error && <p className={styles.error}>{error}</p>}
+        <form onSubmit={handleRegister}>
           <input
             type="text"
             placeholder="Full Name"
@@ -42,10 +61,16 @@ const RegisterModal = ({ isOpen, onClose, switchToLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="button">Register</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
         </form>
 
-        <button className={styles.googleBtn}>
+        <button
+          className={styles.googleBtn}
+          onClick={handleGoogleRegister}
+          disabled={loading}
+        >
           <FcGoogle /> Register with Google
         </button>
 
