@@ -1,40 +1,65 @@
-import { auth, googleProvider } from "../configs/firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithPopup,
   signOut,
+  signInWithPopup,
+  onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
+import { auth, googleProvider } from "../configs/firebaseConfig";
 
-export const loginWithGoogle = async () => {
+// Register with email/password
+export const registerWithEmail = async (email, password, fullName) => {
   try {
-    return await signInWithPopup(auth, googleProvider);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    // Update profile with the user's name
+    await updateProfile(userCredential.user, {
+      displayName: fullName,
+    }); //later use for user dashboard
+    return userCredential.user;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
+// Login with email/password
 export const loginWithEmail = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
-export const registerWithEmail = async (email, password) => {
+// Login with Google
+export const loginWithGoogle = async () => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const result = await signInWithPopup(auth, googleProvider);
+    return result.user;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
+// Logout
 export const logout = async () => {
   try {
-    await signOut();
+    await signOut(auth);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
+};
+
+// Auth state observer
+export const observeAuthState = (callback) => {
+  return onAuthStateChanged(auth, callback);
 };

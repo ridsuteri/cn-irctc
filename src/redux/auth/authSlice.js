@@ -1,19 +1,69 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginWithGoogle } from "../../services/authServices";
 
-export const loginWithGoogleAsync = createAsyncThunk(
-  "auth/loginWithGoogle",
-  async (_, thunkAPI) => {
-    const response = await loginWithGoogle();
-    if (response.status === 200) {
-      return response.user;
-    } else {
-      return thunkAPI.rejectWithValue(response.error);
+// Async thunks for authentication
+export const loginWithEmailAsync = createAsyncThunk(
+  "auth/loginWithEmail",
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const user = await loginWithEmail(email, password);
+      return {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
 
-export const registerWithEmailAsync = createAsyncThunk()
+export const loginWithGoogleAsync = createAsyncThunk(
+  "auth/loginWithGoogle",
+  async (_, { rejectWithValue }) => {
+    try {
+      const user = await loginWithGoogle();
+      return {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const registerWithEmailAsync = createAsyncThunk(
+  "auth/registerWithEmail",
+  async ({ email, password, fullName }, { rejectWithValue }) => {
+    try {
+      const user = await registerWithEmail(email, password, fullName);
+      return {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logoutAsync = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      await logout();
+      return null;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -86,32 +136,80 @@ const authSlice = createSlice({
     },
   },
 
-  extraReducers: (builder)=>{
+  extraReducers: (builder) => {
     builder
-    .addCase(loginWithGoogleAsync.fulfilled,(state, action)=>{
-      state.isLoginOpen = false;
-      state.isRegisterOpen = false;
-      state.isLoggedIn = true;
-      state.user = action.payload;
-      state.loading = false;
-      state.error = null
-    })
-    .addCase(loginWithGoogleAsync.rejected, (state, action)=>{
-      state.isLoginOpen = false;
-      state.isRegisterOpen = false;
-      state.isLoggedIn = false;
-      state.user = null;
-      state.loading = false;
-      state.error = action.payload
-    })
-    .addCase(loginWithGoogleAsync.pending, (state, action)=>{
-      state.loading = true;
-    })
+      // Login with email
+      .addCase(loginWithEmailAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginWithEmailAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        state.isLoginOpen = false;
+        state.isRegisterOpen = false;
+        state.error = null;
+      })
+      .addCase(loginWithEmailAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
 
-    .addCase(registerWithEmailAsync.fulfilled, ()=>{
-      
-    })
-  }
+      // Login with Google
+      .addCase(loginWithGoogleAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginWithGoogleAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        state.isLoginOpen = false;
+        state.isRegisterOpen = false;
+        state.error = null;
+      })
+      .addCase(loginWithGoogleAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Register with email
+      .addCase(registerWithEmailAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerWithEmailAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+        state.isLoginOpen = false;
+        state.isRegisterOpen = false;
+        state.error = null;
+      })
+      .addCase(registerWithEmailAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // Logout
+      .addCase(logoutAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(logoutAsync.fulfilled, (state) => {
+        state.loading = false;
+        state.isLoggedIn = false;
+        state.user = null;
+        state.isLoginOpen = false;
+        state.isRegisterOpen = false;
+        state.error = null;
+      })
+      .addCase(logoutAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
 
 export const {

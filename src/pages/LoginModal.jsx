@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../styles/AuthModal.module.css";
 import { FcGoogle } from "react-icons/fc";
-import {
-  clearError,
-  loginWithGoogleAsync,
-} from "../redux/auth/authSlice";
+import { loginWithEmailAsync, loginWithGoogleAsync, clearError } from "../redux/auth/authSlice";
 
 const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
   const dispatch = useDispatch();
@@ -18,15 +15,22 @@ const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     dispatch(clearError());
-
-    // TODO: call method to login
+    
+    const result = await dispatch(loginWithEmailAsync({ email, password }));
+    if (loginWithEmailAsync.fulfilled.match(result)) {
+      setEmail("");
+      setPassword("");
+      onClose();
+    }
   };
 
   const handleGoogleLogin = async () => {
     dispatch(clearError());
-
-    // TODO: call method to google login
-    dispatch(loginWithGoogleAsync())
+    
+    const result = await dispatch(loginWithGoogleAsync());
+    if (loginWithGoogleAsync.fulfilled.match(result)) {
+      onClose();
+    }
   };
 
   return (
