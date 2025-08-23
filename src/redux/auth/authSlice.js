@@ -1,4 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { loginWithGoogle } from "../../services/authServices";
+
+export const loginWithGoogleAsync = createAsyncThunk(
+  "auth/loginWithGoogle",
+  async (_, thunkAPI) => {
+    const response = await loginWithGoogle();
+    if (response.status === 200) {
+      return response.user;
+    } else {
+      return thunkAPI.rejectWithValue(response.error);
+    }
+  }
+);
+
+export const registerWithEmailAsync = createAsyncThunk()
 
 const authSlice = createSlice({
   name: "auth",
@@ -70,6 +85,33 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
+
+  extraReducers: (builder)=>{
+    builder
+    .addCase(loginWithGoogleAsync.fulfilled,(state, action)=>{
+      state.isLoginOpen = false;
+      state.isRegisterOpen = false;
+      state.isLoggedIn = true;
+      state.user = action.payload;
+      state.loading = false;
+      state.error = null
+    })
+    .addCase(loginWithGoogleAsync.rejected, (state, action)=>{
+      state.isLoginOpen = false;
+      state.isRegisterOpen = false;
+      state.isLoggedIn = false;
+      state.user = null;
+      state.loading = false;
+      state.error = action.payload
+    })
+    .addCase(loginWithGoogleAsync.pending, (state, action)=>{
+      state.loading = true;
+    })
+
+    .addCase(registerWithEmailAsync.fulfilled, ()=>{
+      
+    })
+  }
 });
 
 export const {

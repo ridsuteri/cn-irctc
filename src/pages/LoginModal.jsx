@@ -4,6 +4,7 @@ import styles from "../styles/AuthModal.module.css";
 import { FcGoogle } from "react-icons/fc";
 import {
   clearError,
+  loginWithGoogleAsync,
 } from "../redux/auth/authSlice";
 
 const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
@@ -25,6 +26,7 @@ const LoginModal = ({ isOpen, onClose, switchToRegister, onLogin }) => {
     dispatch(clearError());
 
     // TODO: call method to google login
+    dispatch(loginWithGoogleAsync())
   };
 
   return (
