@@ -14,6 +14,10 @@ import TrainCarousel from "./components/TrainCarousel";
 import styles from "./styles/App.module.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import TrainSearchResults from "./pages/TrainSearchResults";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthState } from "./redux/auth/authSlice";
+import { observeAuthState } from "./services/authServices";
 
 // Component to conditionally render content based on route
 const RouteContentManager = () => {
@@ -57,6 +61,19 @@ const RouteContentManager = () => {
 };
 
 function App() {
+  const dispatch = useDispatch();
+  const { isInitialized } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    observeAuthState((user) => {
+      dispatch(setAuthState(user));
+    });
+  }, [dispatch]);
+
+  if (!isInitialized) {
+    return <>Loading....</>;
+  }
+
   return (
     <Router>
       <div className={styles.app}>
