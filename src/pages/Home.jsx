@@ -27,8 +27,6 @@ const Home = () => {
       return;
     }
 
-    //TODO: Set search parameters in Redux
-
     // Navigate to search results with query parameters
     navigate(
       `/train-search?from=${encodeURIComponent(from)}&to=${encodeURIComponent(
@@ -155,7 +153,6 @@ const Home = () => {
           <button
             className={styles.ShowTrain}
             onClick={() => {
-              //TODO: Clear all filters and search params when showing all trains
               navigate("/train-search");
             }}
           >

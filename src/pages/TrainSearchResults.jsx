@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../styles/TrainSearchResults.module.css";
 import ModifySearch from "../components/ModifySearch";
 import { useSelector, useDispatch } from "react-redux";
+import {applyFilters, setSearchParams} from '../redux/train/trainSlice'
 
 const TrainSearchResults = () => {
   const navigate = useNavigate();
@@ -29,12 +30,12 @@ const TrainSearchResults = () => {
       quota: query.get("quota") || "",
     };
 
-    // TODO: set searchParams
+    dispatch(setSearchParams(params))
 
-    // Fetch trains if not already loaded
-    if (trains.length === 0) {
-      //   TODO: fetch trains
-    }
+    // // Fetch trains if not already loaded
+    // if (trains.length === 0) {
+    //   //   TODO: fetch trains
+    // }
   }, [location.search, trains.length]);
 
   const handleDetailsClick = (train) => {
@@ -50,6 +51,7 @@ const TrainSearchResults = () => {
   // Apply filters when trains, search params, or filters change
   useEffect(() => {
     //   TODO: apply filters
+    dispatch(applyFilters())
   }, [trains, searchParams, filters, dispatch]);
 
   // Use filtered trains if search params or filters are active, otherwise show all trains
