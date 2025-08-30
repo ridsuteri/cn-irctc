@@ -2,14 +2,16 @@ import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../styles/TrainSearchResults.module.css";
 import ModifySearch from "../components/ModifySearch";
-
+import { useSelector, useDispatch } from "react-redux";
 
 const TrainSearchResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch()
 
   // TODO: pull these from redux state
-  const { trains, filteredTrains, searchParams, filters, loading, error } = {};
+  const { trains, filteredTrains, searchParams, filters, loading, error } =
+    useSelector((state) => state.trains);
 
   // Handler for checkbox changes
   const handleFilterChange = (category, value) => {
@@ -31,7 +33,7 @@ const TrainSearchResults = () => {
 
     // Fetch trains if not already loaded
     if (trains.length === 0) {
-    //   TODO: fetch trains
+      //   TODO: fetch trains
     }
   }, [location.search, trains.length]);
 
@@ -49,7 +51,6 @@ const TrainSearchResults = () => {
   useEffect(() => {
     //   TODO: apply filters
   }, [trains, searchParams, filters, dispatch]);
-
 
   // Use filtered trains if search params or filters are active, otherwise show all trains
   const displayTrains =
