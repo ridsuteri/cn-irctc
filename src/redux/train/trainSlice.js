@@ -1,40 +1,51 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { enrichTrainDataWithRoute } from "../../utils/trainDataHelper";
+
+const API_URL = 'https://mocki.io/v1/4099cc1c-9657-47c3-bb3f-10c34275e817'
+
+export const fetchTrains = createAsyncThunk(
+  "trains/fetchTrains",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch(API_URL);
+      if(!response.ok){
+        return rejectWithValue(error.message);
+      }
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Async thunk for fetching single train details
+export const fetchTrainDetails = createAsyncThunk(
+  "trains/fetchTrainDetails",
+  async (trainNumber, { rejectWithValue }) => {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const train = data.data.find((t) => t.train_number === trainNumber);
+      if (!train) {
+        throw new Error("Train not found");
+      }
+      // Enrich train data with route field
+      return enrichTrainDataWithRoute(train);
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 
 const trainSlice = createSlice({
   name: "train",
   initialState: {
-    trains: [
-      {
-        train_number: "12345",
-        train_name: "Rajdhani Express",
-        departure_time: "06:00",
-        arrival_time: "18:00",
-        source: "Delhi",
-        destination: "Mumbai",
-        days_of_operation: ["Mon", "Wed", "Fri"],
-        price: { "1A": 3500, "2A": 2200, "3A": 1500 },
-      },
-      {
-        train_number: "54321",
-        train_name: "Shatabdi Express",
-        departure_time: "08:30",
-        arrival_time: "16:30",
-        source: "Delhi",
-        destination: "Chandigarh",
-        days_of_operation: ["Tue", "Thu", "Sat"],
-        price: { CC: 1200, "2S": 600 },
-      },
-      {
-        train_number: "67890",
-        train_name: "Special Superfast",
-        departure_time: "22:00",
-        arrival_time: "06:00",
-        source: "Mumbai",
-        destination: "Chennai",
-        days_of_operation: "Daily",
-        price: { "1A": 4000, "2A": 2500, "3A": 1700, SL: 800 },
-      },
-    ],
+    trains: [],
     filteredTrains: [],
     selectedTrain: null,
     loading: false,
@@ -224,6 +235,30 @@ const trainSlice = createSlice({
       state.selectedTrain = null;
     },
   },
+
+  extraReducers: (builder)=>{
+    builder
+    .addCase(fetchTrains.pending, (state, action)=>{
+      state.loading = true
+    })
+    .addCase(fetchTrains.fulfilled, (state, action)=>{
+      state.trains = action.payload
+      state.loading = false
+    })
+
+
+    .addCase(fetchTrainDetails.pending, (state, action)=>{
+      state.loading = true
+    })
+    .addCase(fetchTrainDetails.fulfilled, (state, action)=>{
+      state.loading = false
+      state.selectedTrain = action.payload
+    })
+    .addCase(fetchTrainDetails.rejected, (state, action)=>{
+      state.loading = false;
+      state.error = action.payload
+    })
+  }
 });
 
 export const {

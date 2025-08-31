@@ -9,6 +9,7 @@ import {
   toggleFilter,
   applyFilters,
   clearError,
+  fetchTrains,
 } from "../redux/train/trainSlice";
 
 const TrainSearchResults = () => {
@@ -40,9 +41,9 @@ const TrainSearchResults = () => {
     dispatch(setSearchParams(params));
 
     // Fetch trains if not already loaded
-    // if (trains.length === 0) {
-    //   dispatch(fetchTrains());
-    // }
+    if (trains.length === 0) {
+      dispatch(fetchTrains());
+    }
   }, [location.search, dispatch, trains.length]);
 
   const handleDetailsClick = (train) => {
@@ -138,9 +139,9 @@ const TrainSearchResults = () => {
             <label className={styles.checkboxLabel}>
               <input
                 type="checkbox"
-                checked={filters.travelClass["AC First Class"]}
+                checked={filters.travelClass["1A"]}
                 onChange={() =>
-                  handleFilterChange("travelClass", "AC First Class")
+                  handleFilterChange("travelClass", "1A")
                 }
               />
               AC First Class (1A)
@@ -148,16 +149,16 @@ const TrainSearchResults = () => {
             <label className={styles.checkboxLabel}>
               <input
                 type="checkbox"
-                checked={filters.travelClass["AC 2 Tier"]}
-                onChange={() => handleFilterChange("travelClass", "AC 2 Tier")}
+                checked={filters.travelClass["2A"]}
+                onChange={() => handleFilterChange("travelClass", "2A")}
               />
               AC 2 Tier (2A)
             </label>
             <label className={styles.checkboxLabel}>
               <input
                 type="checkbox"
-                checked={filters.travelClass["AC 3 Tier"]}
-                onChange={() => handleFilterChange("travelClass", "AC 3 Tier")}
+                checked={filters.travelClass["3A"]}
+                onChange={() => handleFilterChange("travelClass", "3A")}
               />
               AC 3 Tier (3A)
             </label>
