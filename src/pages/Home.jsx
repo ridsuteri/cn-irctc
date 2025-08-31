@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   FaExchangeAlt,
   FaCalendarAlt,
@@ -8,9 +9,14 @@ import {
 } from "react-icons/fa";
 import styles from "../styles/Home.module.css";
 import trainImage from "../assets/train1.jpg";
+import {
+  setSearchParams,
+  clearAllFiltersAndSearch,
+} from "../redux/train/trainSlice";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState("");
@@ -26,6 +32,17 @@ const Home = () => {
       alert("Please enter both From and To stations");
       return;
     }
+
+    // Set search parameters in Redux
+    dispatch(
+      setSearchParams({
+        from,
+        to,
+        date,
+        travelClass: travelClass === "All Classes" ? "" : travelClass,
+        quota,
+      })
+    );
 
     // Navigate to search results with query parameters
     navigate(
@@ -153,6 +170,8 @@ const Home = () => {
           <button
             className={styles.ShowTrain}
             onClick={() => {
+              // Clear all filters and search params when showing all trains
+              dispatch(clearAllFiltersAndSearch());
               navigate("/train-search");
             }}
           >

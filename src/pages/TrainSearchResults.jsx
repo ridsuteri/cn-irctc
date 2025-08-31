@@ -1,22 +1,29 @@
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 import styles from "../styles/TrainSearchResults.module.css";
 import ModifySearch from "../components/ModifySearch";
-import { useSelector, useDispatch } from "react-redux";
-import {applyFilters, setSearchParams} from '../redux/train/trainSlice'
+import {
+  setSearchParams,
+  toggleFilter,
+  applyFilters,
+  clearError,
+} from "../redux/train/trainSlice";
 
 const TrainSearchResults = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  // TODO: pull these from redux state
+  // Redux state
   const { trains, filteredTrains, searchParams, filters, loading, error } =
     useSelector((state) => state.trains);
 
   // Handler for checkbox changes
   const handleFilterChange = (category, value) => {
-    // TODO
+    dispatch(toggleFilter({ category, value }));
+    dispatch(applyFilters());
   };
 
   // Parse query parameters and fetch trains
@@ -30,29 +37,60 @@ const TrainSearchResults = () => {
       quota: query.get("quota") || "",
     };
 
-    dispatch(setSearchParams(params))
+    dispatch(setSearchParams(params));
 
-    // // Fetch trains if not already loaded
+    // Fetch trains if not already loaded
     // if (trains.length === 0) {
-    //   //   TODO: fetch trains
+    //   dispatch(fetchTrains());
     // }
-  }, [location.search, trains.length]);
+  }, [location.search, dispatch, trains.length]);
 
   const handleDetailsClick = (train) => {
     navigate(`/train-details/${train}`);
   };
 
   const handleBookNowClick = (train) => {
-    // TODO: extract train data
+    // Extract current date in YYYY-MM-DD format
+    const today = new Date();
+    const formattedDate = today.toISOString().split("T")[0];
+
+    // Get the first available class as default
+    const defaultClass = Object.keys(train.price)[0] || "AC Chair Car";
+
     // Navigate to booking page with complete train details
-    navigate("/booking");
+    navigate("/booking", {
+      state: {
+        trainNumber: train.train_number,
+        trainName: train.train_name,
+        from: train.source,
+        to: train.destination,
+        date: formattedDate,
+        departureTime: train.departure_time,
+        arrivalTime: train.arrival_time,
+        duration: train.duration,
+        travelClass: defaultClass,
+        quota: "General",
+        price: train.price,
+        days_of_operation: train.days_of_operation,
+      },
+    });
   };
 
   // Apply filters when trains, search params, or filters change
   useEffect(() => {
-    //   TODO: apply filters
-    dispatch(applyFilters())
+    if (trains.length > 0) {
+      dispatch(applyFilters());
+    }
   }, [trains, searchParams, filters, dispatch]);
+
+  // Clear error when component unmounts
+  useEffect(() => {
+    return () => {
+      if (error) {
+        dispatch(clearError());
+      }
+    };
+  }, [error, dispatch]);
 
   // Use filtered trains if search params or filters are active, otherwise show all trains
   const displayTrains =
