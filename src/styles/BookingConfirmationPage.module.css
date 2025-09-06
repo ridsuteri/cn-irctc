@@ -1,0 +1,196 @@
+/* BookingConfirmation.module.css */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.confirmationCard {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.header h2 {
+    color: #2e7d32;
+    margin: 0;
+}
+
+.bookingId {
+    font-size: 16px;
+    background-color: #f5f5f5;
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+
+.bookingId span {
+    color: #757575;
+    margin-right: 5px;
+}
+
+.section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.section:last-child {
+    border-bottom: none;
+}
+
+.section h3 {
+    color: #424242;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.trainInfo {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.trainName {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.journeyDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.stationName {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.time {
+    color: #616161;
+    font-size: 14px;
+}
+
+.arrow {
+    font-size: 20px;
+    color: #757575;
+}
+
+.additionalInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    color: #616161;
+}
+
+.passengerTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.passengerTable th,
+.passengerTable td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.passengerTable th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.paymentInfo {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.paymentRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.totalRow {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #e0e0e0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+
+.homeButton {
+    background-color: #e0e0e0;
+    color: #424242;
+}
+
+.homeButton:hover {
+    background-color: #d5d5d5;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .journeyDetails {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .arrow {
+        transform: rotate(90deg);
+        margin: 10px 0;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .button {
+        width: 100%;
+    }
+}
