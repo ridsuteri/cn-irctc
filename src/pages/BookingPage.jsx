@@ -20,9 +20,7 @@ function BookingPage() {
   const { user: currentUser } = useSelector((state) => state.auth);
 
   // Redux state
-  const { currentBooking, loading, error, bookingCreated, lastBookingId } =
-    {}
-
+  const { currentBooking, loading, error, bookingCreated, lastBookingId } = useSelector((state)=>state.bookings)
   const {
     trainDetails,
     passengers,
@@ -30,7 +28,7 @@ function BookingPage() {
     selectedClass,
     availableClasses,
     classPrice,
-  } = {};
+  } = currentBooking;
 
   const calculateTotalFare = () => {
     if (
@@ -72,7 +70,6 @@ function BookingPage() {
 
   // Initialize booking when component mounts
   useEffect(() => {
-    console.log(location.state);
     if (location.state?.trainNumber) {
       const trainData = {
         trainNumber: location.state.trainNumber,
@@ -87,7 +84,6 @@ function BookingPage() {
         duration: location.state.duration || "8h 00m",
       };
 
-      console.log('trainData', trainData)
       dispatch(
         initializeBooking({
           trainDetails: trainData,

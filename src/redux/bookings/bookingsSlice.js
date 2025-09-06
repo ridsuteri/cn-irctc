@@ -40,6 +40,18 @@ const bookingSlice = createSlice({
   reducers: {
     // Initialize booking with train details
     initializeBooking: (state, action) => {
+      console.log('payload received at reducer', action.payload);
+      const {trainDetails, classPrice, userEmail} = action.payload;
+      // write code to iterate on price obj of trainDetails and put these values under availableClasses
+      const availableClasses = Object.keys(classPrice)
+      state.currentBooking = {
+        ...state.currentBooking,
+        trainDetails,
+        classPrice,
+        contactInfo:
+        {email: userEmail},
+        availableClasses
+      }
     },
 
     // Update train details
@@ -62,6 +74,7 @@ const bookingSlice = createSlice({
     },
 
     updatePassenger: (state, action) => {
+      // const {index, field, value}
      
     },
 
