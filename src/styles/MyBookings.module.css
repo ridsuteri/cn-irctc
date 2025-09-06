@@ -1,0 +1,207 @@
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  color: #333;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Loading State */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.errorContainer {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  border-radius: 4px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.errorContainer h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+/* No Bookings */
+.noBookings {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.noBookings p {
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+
+.primaryButton {
+  background-color: #e31837;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.primaryButton:hover {
+  background-color: #c4122f;
+}
+
+/* Table Styles */
+.tableContainer {
+  overflow-x: auto;
+  margin-bottom: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.bookingsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bookingsTable th,
+.bookingsTable td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.bookingsTable th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bookingRow:hover {
+  background-color: #f9f9f9;
+}
+
+/* Cell specific styles */
+.trainName {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.trainNumber,
+.stationName {
+  color: #666;
+  font-size: 14px;
+}
+
+.departureTime,
+.arrivalTime {
+  color: #888;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Status Badge */
+.statusBadge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.statusConfirmed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.statusPending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+/* View Button */
+.viewButton {
+  color: #e31837;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border: 1px solid #e31837;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.viewButton:hover {
+  background-color: #e31837;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .bookingsTable {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .bookingsTable th,
+  .bookingsTable td {
+    min-width: 120px;
+  }
+  
+  .noBookings {
+    padding: 20px 15px;
+  }
+  
+  .title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}

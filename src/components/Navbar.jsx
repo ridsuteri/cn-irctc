@@ -53,9 +53,14 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className={styles.navLinks}>
-          <span className={styles.navLink} onClick={handleBookingClick}>
+          {isLoggedIn && (
+            <span 
+              className={styles.navLink} 
+              onClick={() => navigate("/my-bookings")}
+            >
             BOOKINGS
-          </span>
+            </span>
+          )}
           <span className={styles.navLink} onClick={() => navigate("/contact")}>
             CONTACT US
           </span>
