@@ -66,7 +66,7 @@ const bookingSlice = createSlice({
 
     // Passenger management
     addPassenger: (state) => {
-      
+      state.currentBooking.passengers.push({ name: "", age: "", gender: "Male", berth: "No Preference" });
     },
 
     removePassenger: (state, action) => {
@@ -74,8 +74,8 @@ const bookingSlice = createSlice({
     },
 
     updatePassenger: (state, action) => {
-      // const {index, field, value}
-     
+      const {index, field, value} = action.payload
+      state.currentBooking.passengers[index][field] = value
     },
 
     // Contact info management
